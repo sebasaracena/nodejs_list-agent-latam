@@ -22,3 +22,7 @@ input parameters
 
 }
 ```
+## DELETE Request delete_nodejs_hit
+
+Also, this should permit the user to remove items and
+these ones should not reappear when the app is restarted.

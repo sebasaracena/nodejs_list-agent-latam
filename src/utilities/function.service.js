@@ -4,7 +4,7 @@ const clean_data= async()=>{
     return {
         'story_id': 1, 
         'created_at': 1, 
-        'title': '$story_title', 
+        'title': '$title', 
         'author': 1, 
         'story_url': 1, 
         '_tags': 1

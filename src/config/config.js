@@ -10,6 +10,6 @@ if (typeof process.env.AMBIENTE == "dev") {
 }
 
 else if (process.env.AMBIENTE == "pro"){
-    process.env.urlMongo = `mongodb://localhost:27017/agent_latam`;
+    process.env.urlMongo = `mongodb+srv://sebastianandresaracena:0EGmOSGKjj3ToTKS@cluster0.0jhsnlp.mongodb.net/agent_latam?retryWrites=true&w=majority`;
     process.env.statecron=true;
 }

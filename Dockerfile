@@ -1,19 +1,35 @@
-FROM node:16
+# syntax = docker/dockerfile:1
 
-# Create app directory
-WORKDIR 'C:\Users\sebas\Entrevista de trabajos\'
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=14.17.0
+FROM node:${NODE_VERSION}-slim as base
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+LABEL fly_launch_runtime="NodeJS"
 
+# NodeJS app lives here
+WORKDIR /app
+
+# Set production environment
+ENV NODE_ENV=production
+
+
+# Throw-away build stage to reduce size of final image
+FROM base as build
+
+# Install node modules
+COPY --link package.json package-lock.json .
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --omit=dev
 
-# Bundle app source
-COPY . .
+# Copy application code
+COPY --link . .
 
-EXPOSE 8080
-CMD [ "node", "/src/index.js" ]
+
+
+# Final stage for app image
+FROM base
+
+# Copy built application
+COPY --from=build /app /app
+
+# Start the server by default, this can be overwritten at runtime
+CMD [ "npm", "run", "start" ]

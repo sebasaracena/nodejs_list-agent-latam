@@ -9,16 +9,16 @@ const hitsList = async(body)=>{
     const limit= body.limit == undefined ? 5: body.limit;
     const search= body.search==  undefined? {}: body.search;
     const project= await functionService.clean_data();
-   
+    //The variable 'match' is used to create a filter for the query.
     let match= {};
-    //calculate the skip for the elements the user want see
+    //Calculate the 'skip' for the elements the user wants to see.
     if(page>1) skip= (page-1)*5;
     else skip=0;
-    // now we separed each data for object search
+    //Separed each variable for object search
     if(Object.entries(search).length!=0){
-     //if search have title atribute for filter
+     //If search have title atribute for filter
         if(search.hasOwnProperty('title')){ 
-        match["story_title"]={
+        match["title"]={
         '$regex': search.title,
         '$options': 'i'
       };
@@ -40,7 +40,7 @@ const hitsList = async(body)=>{
    
      
     
-   
+   // try execute the query for 
     try{
         let count= await nodejs_list.aggregate([ {
             '$match':match
@@ -106,10 +106,10 @@ const deletehit = async(id)=>{
       if(hit){ 
       //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
       idRegisters.push(hit.story_id);
-      // delete the element
+      //Delete the element
        await hit.deleteOne();
        }
-       //creating the data be put in in the 'nodejs_log'
+       //Creating the data be put in in the 'nodejs_log'
        let logJson={
         data_execute: date,
         lastid_date:nodeRegister_list.created_at,

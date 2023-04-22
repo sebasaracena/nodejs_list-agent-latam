@@ -90,7 +90,7 @@ const hitsList = async(body)=>{
 const deletehit = async(id)=>{
 
     try{
-        
+        let msg="elemento no encontrado "+id;
         // The purpose of the date variable is to record the date when the function was executed
         let date=new Date();
         let idRegisters=[];
@@ -102,20 +102,21 @@ const deletehit = async(id)=>{
         if(nodejs_log) idRegisters=nodejs_log.nodejs_id_list;
       
        //looking the data for story_id
-       let hitStory= await nodejs_list.findOne({story_id:id});
-      
+       let hitStory= await nodejs_list.findOne({story_id:Number(id)});
+       
        if(hitStory){ 
         //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
-        idRegisters.push({story_id:hitObjectID.story_id,objectID:hitObjectID.objectID});
+        idRegisters.push({story_id:hitStory.story_id,objectID:hitStory.objectID});
         //Delete the element
          await hitStory.deleteOne();
+         mg="elemento "+id+" eliminado";
          }
 
        //Creating the data be put in in the 'nodejs_log'
        let logJson={
         data_execute: date,
         lastid_date:nodeRegister_list.created_at,
-        msg:"Elemento eliminado",
+        msg:msg,
         type:"delete",
         error:false,
         nodejs_id_list:idRegisters,
@@ -127,19 +128,8 @@ const deletehit = async(id)=>{
       }
     }
     catch(e){
-        //If an error occurs in the program, it should be registered to the system.
-        let logJson={
-            data_execute: date,
-            lastid_date:null,
-            msg:e,
-            type:"delete",
-            error:true,
-            nodejs_id_list:[],
-        }
-        //data log registered
-        await nodejs_logsService.registerLog(logJson); 
-
-         return {msg:"error no se encontro el id "+e}
+        console.log(e);
+        return {msg:"error no se encontro el id "+e}
     }
     
 }

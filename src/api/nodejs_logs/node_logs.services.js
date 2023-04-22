@@ -1,7 +1,7 @@
 const nodejs_log= require('../../models/nodejs_logs.model');
 // function for register log
 const registerLog = async(item)=>{
-    
+  
     try{
 
         const reglog = new nodejs_log({

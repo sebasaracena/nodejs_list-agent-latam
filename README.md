@@ -38,7 +38,7 @@ The code example for the cron execute method can be found in this link [cron exe
 
 ## POST Request nodejs_logs (Optional)
 
-This Request shows every single log so that you can understand a little bit about the reason why I am using the "nodejs_logs" collection in MongoDB, and get it the algorithms used in the function [serverConectHits](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/api/nodejs_list/hits.services.js) on line 138 untill 150.
+This Request shows every single log so that you can understand a little bit about the reason why I am using the "nodejs_logs" collection in MongoDB, and get it the algorithms used in the function [serverConectHits](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/api/nodejs_list/hits.services.js) on line 138 untill 150. [https://nodejshits.fly.dev/api/logs/list_logs](https://nodejshits.fly.dev/api/logs/list_logs)
 
 ```
 {

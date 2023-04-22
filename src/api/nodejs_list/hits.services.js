@@ -90,7 +90,7 @@ const hitsList = async(body)=>{
 const deletehit = async(id)=>{
 
     try{
-        console.log(id);
+   
         // The purpose of the date variable is to record the date when the function was executed
         let date=new Date();
         let idRegisters=[];

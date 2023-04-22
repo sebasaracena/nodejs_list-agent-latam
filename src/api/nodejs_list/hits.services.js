@@ -102,7 +102,7 @@ const deletehit = async(id)=>{
         if(nodejs_log) idRegisters=nodejs_log.nodejs_id_list;
       
        //looking the data for objectID
-       let hitStory= await nodejs_list.findOne({objectID:Number(id)});
+       let hitStory= await nodejs_list.findOne({objectID:id});
        
        if(hitStory){ 
         //When a 'objectID' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted

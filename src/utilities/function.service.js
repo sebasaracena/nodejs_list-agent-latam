@@ -20,16 +20,17 @@ const clean_data= async()=>{
 }
 
 const conect_nodejs= async()=>{
-    
+    //conect with API REST used axios library
     const instance = axios.create({
         baseURL: `https://hn.algolia.com/api/v1/search_by_date?query=nodejs`
     });
-    
+    // request GET
     const resp = await instance.get();
    
     if (resp.data.hits.lenght == 0) {
         throw new Error(`Ocurrio un error al buscar Direcciones de Cliente ${encodedUlr}`);
     }
+     //response the services
     const data = resp.data.hits;
     return data;
 

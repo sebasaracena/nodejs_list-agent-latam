@@ -23,7 +23,9 @@ const registerLog = async(item)=>{
 
 const found_lastRegisterLog= async()=>{
     try{
+       //take the last execute delete for take the array that who elements was deleted 
        let last_logResgitered= nodejs_log.findOne({type:"delete"}).sort({data_execute:-1});
+       //return the object
        return last_logResgitered;
     }catch(e){
       console.log(e);
@@ -35,6 +37,8 @@ const found_lastRegisterLog= async()=>{
 
 const found_lastElement= async()=>{
   try{
+     //It takes the date of the most recent record item in the 'nodejs_lists' 
+     //collection before it was deleted with this data can be used to avoid inserting the deleted item again.
      let last_logResgitered= nodejs_log.findOne({type:"delete"}).sort({lastid_date:-1});
      return last_logResgitered;
   }catch(e){

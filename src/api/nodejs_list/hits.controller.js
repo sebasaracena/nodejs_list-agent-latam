@@ -1,6 +1,5 @@
 
 const {hitsService}= require('./hits.services');
-
 const hitsList = async(req,res)=>{
     try{
          
@@ -34,9 +33,10 @@ const deleteHit = async(req,res)=>{
         })
 
     }catch(e){
+         let msg=e
         return res.json({
             error: true,
-            msg: e
+            msg: msg
         });
     }
 }

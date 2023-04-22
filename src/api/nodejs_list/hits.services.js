@@ -90,7 +90,7 @@ const hitsList = async(body)=>{
 const deletehit = async(id)=>{
 
     try{
-        console.log(id);
+        let msg="elemento no encontrado "+id;
         // The purpose of the date variable is to record the date when the function was executed
         let date=new Date();
         let idRegisters=[];
@@ -101,23 +101,22 @@ const deletehit = async(id)=>{
         //If 'nodejs_log' is not null, then 'idRegsiter' will copy an array with items that have a 'story_id'
         if(nodejs_log) idRegisters=nodejs_log.nodejs_id_list;
       
-       //looking the data for story_id
-       let hitStory= await nodejs_list.findOne({story_id:id});
-      
+       //looking the data for objectID
+       let hitStory= await nodejs_list.findOne({objectID:id});
+       
        if(hitStory){ 
-        //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
-        idRegisters.push(hitStory.story_id);
+        //When a 'objectID' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
+        idRegisters.push({story_id:hitStory.story_id,objectID:hitStory.objectID});
         //Delete the element
          await hitStory.deleteOne();
+         msg="elemento "+id+" eliminado";
          }
-    
-
 
        //Creating the data be put in in the 'nodejs_log'
        let logJson={
         data_execute: date,
         lastid_date:nodeRegister_list.created_at,
-        msg:"Elemento eliminado",
+        msg:msg,
         type:"delete",
         error:false,
         nodejs_id_list:idRegisters,
@@ -129,19 +128,8 @@ const deletehit = async(id)=>{
       }
     }
     catch(e){
-        //If an error occurs in the program, it should be registered to the system.
-        let logJson={
-            data_execute: date,
-            lastid_date:null,
-            msg:e,
-            type:"delete",
-            error:true,
-            nodejs_id_list:[],
-        }
-        //data log registered
-        await nodejs_logsService.registerLog(logJson); 
-
-         return {msg:"error no se encontro el id "+e}
+        console.log(e);
+        return {msg:"error no se encontro el id "+e}
     }
     
 }
@@ -149,38 +137,48 @@ const deletehit = async(id)=>{
 //insert the news element in the dataBaseMongo
 const serverConectHits = async(date)=>{
     try{
+    // Variable to be used to the first record of the program when there is no element in the collection 'nodejs_list'.
     let empty=false;
+    //takes the most recent item from nodejs_list
     let nodeRegister_list = await nodejs_list.findOne({},{created_at:1}).sort({created_at : -1});
-   
+    //take the recent element was deleted this register, it has the most current date of the 'nodejs_list' records.  
     let nodejs_log = await nodejs_logsService.found_lastElement();
-     
+    //lastdata' take the most current date and compare with the REST API
+    //dates so that deleted items are not reinserted into the 'nodejs_list' collection.
     let lastdata = await functionService.last_data(nodeRegister_list,nodejs_log);
+    //if  lastdata is null empty is true
      if(!lastdata) empty=true;
-
+    //Conect API REST for take de data 
     let dataJSON = await functionService.conect_nodejs();
-    
-    
+    //for the msg for 'nodejs_logs'
     let msg="";
+    //register items inserted in 'nodejs_list' collection this variable use for nodejs_logs
     let idRegisters=[];
+    // how many elements was register in 'nodejs_list'
     let count=0;
     await Promise.all(dataJSON.map(async(item) => {
         let data= new Date(item.created_at);
         let insert=false;
-
+        //If 'nodejs_lists' no have elements
         if(!nodeRegister_list){ 
              if(item.story_id){
+             //insert items in 'nodejs_lists'
              insert= await insertHits(item);
-             idRegisters.push(item.story_id);
+             //Put in items in register for 'nodejs_logs'
+             idRegisters.push({story_id:item.story_id,objectID:item.objectID});
+             //count elements that register in 'nodejs_lists'
              count=count+1;
             }
         }
-
+        //If nodejs_list have elements
         else{ 
-          
+           //Compare the date with each date delivered by the elements extracted by the REST API of 'hn.algolia.com'.
           if(lastdata && data.getTime()>lastdata.getTime() && item.story_id){
-       
+              //insert items in 'nodejs_lists'
               insert= await insertHits(item);
-              idRegisters.push(item.story_id);
+              //Put in items in register for 'nodejs_logs'
+              idRegisters.push({story_id:item.story_id,objectID:item.objectID});
+              //count elements that register in 'nodejs_lists'
               count=count+1;
              
           }
@@ -191,7 +189,9 @@ const serverConectHits = async(date)=>{
     }));
 
     msg=""+count+" hits have been registered"; 
+    //If empty, it takes the current data that was inserted in the 'nodejs_list' step on line 166
     if(empty) nodeRegister_list = await nodejs_list.findOne({},{created_at:1}).sort({created_at : -1});
+    // make logJSON for the register of log
     let logJson={
         data_execute: date,
         lastid_date:nodeRegister_list.created_at,
@@ -200,21 +200,13 @@ const serverConectHits = async(date)=>{
         error:false,
         nodejs_id_list:idRegisters,
     }
-    
+    //register data in nodejs_logs 
     await nodejs_logsService.registerLog(logJson); 
     
     return true;
 
 } catch(e){ 
-    let logJson={
-        data_execute: date,
-        msg:e,
-        type:"register",
-        error:true,
-        nodejs_list_id:-1,
-    }
-    
-    await nodejs_logsService.registerLog(logJson); 
+   
     console.log(e);
     return false;
 }

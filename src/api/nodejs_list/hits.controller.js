@@ -1,6 +1,5 @@
 
 const {hitsService}= require('./hits.services');
-const {nodejs_logsService}= require('../nodejs_logs/node_logs.services')
 const hitsList = async(req,res)=>{
     try{
          

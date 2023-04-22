@@ -1,7 +1,10 @@
 const nodejs_list= require('../../models/nodejs_list.model');
 const {nodejs_logsService}= require('../nodejs_logs/node_logs.services');
 const {functionService}= require('../../utilities/function.service');
-
+/**
+ * @author Sebastian Aracena
+ * @description show the elements from 'nodejs_lists' collection
+ */
 const hitsList = async(body)=>{
  
     let page=  body.page == undefined || body.page <= 0 ? 1 : body.page;
@@ -59,10 +62,10 @@ const hitsList = async(body)=>{
         '$match':match
        },
        {
-        '$skip': skip
+        '$skip': Number(skip)
     },
          {
-            '$limit': limit
+            '$limit': Number(limit)
         },
 
         {
@@ -86,7 +89,10 @@ const hitsList = async(body)=>{
         };
     }
 }
-
+/**
+ * @author Sebastian Aracena
+ * @description delete one element in nodejs_list
+ */
 const deletehit = async(id)=>{
 
     try{
@@ -133,8 +139,10 @@ const deletehit = async(id)=>{
     }
     
 }
-
-//insert the news element in the dataBaseMongo
+/**
+ * @author Sebastian Aracena
+ * @description insert the news element in the dataBaseMongo
+ */
 const serverConectHits = async(date)=>{
     try{
     // Variable to be used to the first record of the program when there is no element in the collection 'nodejs_list'.
@@ -211,7 +219,10 @@ const serverConectHits = async(date)=>{
     return false;
 }
 }
-
+/**
+ * @author Sebastian Aracena
+ * @description the function responsable for insert each items to 'nodejs_list' collection
+ */
 const insertHits = async(item)=>{
     
     try{

@@ -1,5 +1,8 @@
 const nodejs_log= require('../../models/nodejs_logs.model');
-// function for register log
+/**
+ * @author Sebastian Aracena
+ * @description Insert the logs where the system insert new items or delete someone
+ */
 const registerLog = async(item)=>{
   
     try{
@@ -20,7 +23,12 @@ const registerLog = async(item)=>{
     return false;
   }
 }
-
+/**
+ * @author Sebastian Aracena
+ *
+ *  * @description method to show the elements in the 'nodejs_logs' collection.
+ *  * @returns data from 'nodejs_logs' collection
+ */
 const logsList = async(body)=>{
  
   let page=  body.page == undefined || body.page <= 0 ? 1 : body.page;
@@ -73,12 +81,12 @@ const logsList = async(body)=>{
           'date_execute': -1
       }
   },
+  {
+    '$skip': Number(skip)
+},
      {
-      '$skip': skip
-  },
-       {
-          '$limit': limit
-      }
+        '$limit': Number(limit)
+    }
      
   ]);
   
@@ -98,6 +106,12 @@ const logsList = async(body)=>{
   }
 }
 
+
+/**
+ * @author Sebastian Aracena
+ *
+ *  * @description return the object of one element, the last log was executed for 'nodejs_logs' collection.
+ */
 const found_lastRegisterLog= async()=>{
     try{
        //take the last execute delete for take the array that who elements was deleted 
@@ -111,7 +125,12 @@ const found_lastRegisterLog= async()=>{
 
 }
 
-
+/**
+ * @author Sebastian Aracena
+ *
+ *  * @description return the object of one element was deleted and contain the date the last element was insert in 'nodejs_lists' 
+ * 
+ */
 const found_lastElement= async()=>{
   try{
      //It takes the date of the most recent record item in the 'nodejs_lists' 

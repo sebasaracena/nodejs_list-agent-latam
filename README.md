@@ -33,3 +33,19 @@ these ones should not reappear when the app is restarted.
  This method is used for the cron and has been configured to run every hour of the day. In this function, we use the 'nodejs_logs' collection to compare the dates of the records, so that we don't re-insert deleted data into the 'nodejs_lists' collection.
  
 The code example for the cron execute method can be found in this link [cron execute method](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/index.js) on line 27
+
+# HOW IT WORK
+ firts step put in your terminal
+ ```
+  npm install
+ 
+ ```
+next step to transform the [config.js.default](https://github.com/sebasaracena/nodejs_list-agent-latam/tree/main/src/config) file into a js file, is only to remove the ***'.default'*** in the file name
+
+Last Step put in your terminal or use doker this aplication have ***Dockerfile**
+ ```
+  npm start
+ 
+ ```
+ ## Explaining the data bases
+ we have two collections in mongoDB one to have the record of the hits [nodejs_lists](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_list.model.js) of the REST API and the other as a log [nodejs_logs](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_logs.model.js) record for two purposes, history of which element was inserted or deleted in a given process and to compare the last date of the elements. This way, when connecting again with the API, it does not allow to insert again data already deleted and thus not to be comparing by element through a search array which one should be inserted or not again.

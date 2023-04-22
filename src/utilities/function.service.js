@@ -4,10 +4,18 @@ const clean_data= async()=>{
     return {
         'story_id': 1, 
         'created_at': 1, 
-        'title': '$title', 
+        'title': 1, 
         'author': 1, 
         'story_url': 1, 
-        '_tags': 1
+        '_tags': 1,
+       'points': 1,
+        'story_text': 1,
+        'comment_text': 1,
+        'num_comments': 1,
+        'story_title': 1,
+        'parent_id': 1,
+        'created_at_i': 1,
+        'objectID':1
       }
 }
 

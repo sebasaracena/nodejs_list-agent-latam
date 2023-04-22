@@ -171,7 +171,7 @@ const serverConectHits = async (date) => {
         let insert = false;
         //If 'nodejs_lists' no have elements
         if (!nodeRegister_list) {
-          if (item.story_id) {
+          
             //insert items in 'nodejs_lists'
             insert = await insertHits(item);
             //Put in items in register for 'nodejs_logs'
@@ -181,7 +181,7 @@ const serverConectHits = async (date) => {
             });
             //count elements that register in 'nodejs_lists'
             count = count + 1;
-          }
+          
         }
         //If nodejs_list have elements
         else {
@@ -237,8 +237,6 @@ const insertHits = async (item) => {
   try {
     const newhit = new nodejs_list({
       created_at: new Date(item.created_at),
-      title: item.story_title,
-      url: item.story_url,
       author: item.author,
       points: item.points,
       story_text: item.story_text,
@@ -253,6 +251,15 @@ const insertHits = async (item) => {
       objectID: item.objectID,
       _highlightResult: item._highlightResult,
     });
+    //"If the title is null in the API, use the story_title instead. Similarly, if story_title is null, use title instead.
+    //When title is null, it should have the value of story_title. The same logic applies to url.
+    if(item.title) {
+      newhit.title=item.title;
+      newhit.url=item.url;
+    }else {
+      newhit.title=item.story_title;
+      newhit.url=item.story_url;
+    }
     await newhit.save();
     return true;
   } catch (e) {

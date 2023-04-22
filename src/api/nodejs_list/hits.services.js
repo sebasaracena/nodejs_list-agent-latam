@@ -7,9 +7,9 @@ const { functionService } = require("../../utilities/function.service");
  * @returns data from 'nodejs_lists' collection
  */
 const hitsList = async (body) => {
-  let page = body.page == undefined || body.page <= 0 ? 1 : body.page;
+  let page = body.page == undefined || body.page <= 0 ? 1 : Number(body.page);
   let skip = 0;
-  const limit = body.limit == undefined ? 5 : body.limit;
+  const limit = body.limit == undefined ? 5 : Number(body.limit);
   const search = body.search == undefined ? {} : body.search;
   const project = await functionService.clean_data();
   //The variable 'match' is used to create a filter for the query.
@@ -60,10 +60,10 @@ const hitsList = async (body) => {
         $match: match,
       },
       {
-        $skip: Number(skip),
+        $skip: skip,
       },
       {
-        $limit: Number(limit),
+        $limit: limit,
       },
 
       {

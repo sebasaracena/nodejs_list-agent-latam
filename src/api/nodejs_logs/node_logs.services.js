@@ -28,9 +28,9 @@ const registerLog = async (item) => {
  *  * @returns data from 'nodejs_logs' collection
  */
 const logsList = async (body) => {
-  let page = body.page == undefined || body.page <= 0 ? 1 : body.page;
+  let page = body.page == undefined || body.page <= 0 ? 1 :  Number(body.page);
   let skip = 0;
-  const limit = body.limit == undefined ? 5 : body.limit;
+  const limit = body.limit == undefined ? 5 : Number(body.limit);
   const search = body.search == undefined ? {} : body.search;
 
   //The variable 'match' is used to create a filter for the query.

@@ -109,7 +109,7 @@ const deletehit = async(id)=>{
         idRegisters.push({story_id:hitStory.story_id,objectID:hitStory.objectID});
         //Delete the element
          await hitStory.deleteOne();
-         mg="elemento "+id+" eliminado";
+         msg="elemento "+id+" eliminado";
          }
 
        //Creating the data be put in in the 'nodejs_log'

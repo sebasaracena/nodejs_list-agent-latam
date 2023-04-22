@@ -90,6 +90,7 @@ const hitsList = async(body)=>{
 const deletehit = async(id)=>{
 
     try{
+        console.log(id);
         // The purpose of the date variable is to record the date when the function was executed
         let date=new Date();
         let idRegisters=[];
@@ -100,15 +101,18 @@ const deletehit = async(id)=>{
         //If 'nodejs_log' is not null, then 'idRegsiter' will copy an array with items that have a 'story_id'
         if(nodejs_log) idRegisters=nodejs_log.nodejs_id_list;
       
-        // this API uses Mongo, so it uses 'ObjectId' as the primary key
-        // Looking element by 'ObjectId'
-       let hit= await nodejs_list.findById(id);
-      if(hit){ 
-      //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
-      idRegisters.push(hit.story_id);
-      //Delete the element
-       await hit.deleteOne();
-       }
+       //looking the data for story_id
+       let hitStory= await nodejs_list.findOne({story_id:id});
+      
+       if(hitStory){ 
+        //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
+        idRegisters.push(hitStory.story_id);
+        //Delete the element
+         await hitStory.deleteOne();
+         }
+    
+
+
        //Creating the data be put in in the 'nodejs_log'
        let logJson={
         data_execute: date,
@@ -220,16 +224,24 @@ const insertHits = async(item)=>{
     
     try{
         const newhit = new nodejs_list({
-        created_at: item.created_at,
-        title:item.story_title,
-        url: item.story_url,
-        author: item.author,
-        comment_text:item.comment_text,
-        story_id:item.story_id,
-        parent_id:item.parent_id,
-        created_at_i: item.created_at_i,
-         _tags: item._tags,
-        objectID:  item.objectID
+            
+                created_at: new Date(item.created_at),
+                title: item.story_title,
+                url: item.story_url,
+                author: item.author,
+                points: item.points,
+                story_text: item.story_text,
+                comment_text: item.comment_text,
+                num_comments: item.num_comments,
+                story_id: item.story_id,
+                story_title: item.story_title,
+                story_url: item.story_url,
+                parent_id: item.parent_id,
+                created_at_i: item.created_at_i,
+                _tags: item._tags,
+                objectID: item.objectID,
+                _highlightResult:item._highlightResult
+              
 
     });
     await newhit.save();

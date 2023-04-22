@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
 app.options('*', cors());
 
 // The cron job is executed once every hour.
-cron.schedule('0 59 * * * *', async () => { 
+cron.schedule('0 0 * * * *', async () => { 
  
   let date= new Date();
   console.log("extrat data from the API-Rest "+date);

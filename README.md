@@ -40,6 +40,6 @@ The code example for the cron execute method can be found in this link [cron exe
   npm install
  
  ```
-next step to transform the [config.js.default](https://github.com/sebasaracena/nodejs_list-agent-latam/tree/main/src/config) file into a js file, is only to remove the *** '.default' *** in the file name
+next step to transform the [config.js.default](https://github.com/sebasaracena/nodejs_list-agent-latam/tree/main/src/config) file into a js file, is only to remove the ***'.default'*** in the file name
 
 

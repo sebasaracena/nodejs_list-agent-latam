@@ -224,16 +224,24 @@ const insertHits = async(item)=>{
     
     try{
         const newhit = new nodejs_list({
-        created_at: item.created_at,
-        title:item.story_title,
-        url: item.story_url,
-        author: item.author,
-        comment_text:item.comment_text,
-        story_id:item.story_id,
-        parent_id:item.parent_id,
-        created_at_i: item.created_at_i,
-         _tags: item._tags,
-        objectID:  item.objectID
+            
+                created_at: item.created_at,
+                title: item.story_title,
+                url: item.story_url,
+                author: item.author,
+                points: item.points,
+                story_text: item.story_text,
+                comment_text: item.comment_text,
+                num_comments: item.num_comments,
+                story_id: item.story_id,
+                story_title: item.story_title,
+                story_url: item.story_url,
+                parent_id: item.parent_id,
+                created_at_i: item.created_at,
+                _tags: item._tags,
+                objectID: item.objectID,
+                _highlightResult:item._highlightResult
+              
 
     });
     await newhit.save();

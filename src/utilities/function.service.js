@@ -20,6 +20,7 @@ const clean_data = async () => {
     parent_id: 1,
     created_at_i: 1,
     objectID: 1,
+    _highlightResult:1
   };
 };
 /**

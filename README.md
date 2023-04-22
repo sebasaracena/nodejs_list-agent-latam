@@ -1,4 +1,4 @@
-﻿﻿# nodejs_list-agent-latam
+﻿# nodejs_list-agent-latam
 The server, once an hour, should connect to the API [nodejsApi](https://hn.algolia.com/api/v1/search_by_date?query=nodejs) which shows
 recently posted articles about Node.js on Hacker News. It should insert the data from the
 API into a database and also define a REST API  which the client (e.g. Postman) will be used
@@ -26,3 +26,4 @@ input parameters
 
 Also, this should permit the user to remove items and
 these ones should not reappear when the app is restarted.
+[https://nodejshits.fly.dev/api/hits/delete_hits/<ID_Object_to_Mongo>](https://nodejshits.fly.dev/api/hits/delete_hits/)  is The request in Postman is of type ***DELETE***

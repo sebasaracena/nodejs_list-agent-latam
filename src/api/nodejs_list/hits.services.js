@@ -90,7 +90,7 @@ const hitsList = async(body)=>{
 const deletehit = async(id)=>{
 
     try{
-        console.log(id);
+        
         // The purpose of the date variable is to record the date when the function was executed
         let date=new Date();
         let idRegisters=[];
@@ -106,12 +106,10 @@ const deletehit = async(id)=>{
       
        if(hitStory){ 
         //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
-        idRegisters.push(hitStory.story_id);
+        idRegisters.push({story_id:hitObjectID.story_id,objectID:hitObjectID.objectID});
         //Delete the element
          await hitStory.deleteOne();
          }
-    
-
 
        //Creating the data be put in in the 'nodejs_log'
        let logJson={

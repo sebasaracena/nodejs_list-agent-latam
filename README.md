@@ -27,3 +27,9 @@ input parameters
 Also, this should permit the user to remove items and
 these ones should not reappear when the app is restarted.
 [https://nodejshits.fly.dev/api/hits/delete_hits/<objectID>](https://nodejshits.fly.dev/api/hits/delete_hits/)  is The request in Postman is of type ***DELETE***
+
+## Insert the data with API REST from hn.algolia.com
+ 
+ This method is used for the cron and has been configured to run every hour of the day. In this function, we use the 'nodejs_logs' collection to compare the dates of the records, so that we don't re-insert deleted data into the 'nodejs_lists' collection.
+ 
+The code example for the cron execute method can be found in this link [cron execute method](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/index.js) on line 27

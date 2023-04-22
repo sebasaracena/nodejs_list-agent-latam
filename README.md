@@ -13,7 +13,8 @@ to be filtered by author, _tags, title.
 input parameters
 ```
 {
-	"page":1,
+	"page":1,//you can call without 
+      "limit":5,
 	"search":{
       "title":"Show HN: CozoDB",
       "author":"pizza",
@@ -22,6 +23,7 @@ input parameters
 
 }
 ```
+If you want call with out json body the request work it because have a default value for varaible page and limit. 
 ## DELETE Request delete_nodejs_hit
 
 Also, this should permit the user to remove items and
@@ -33,6 +35,23 @@ these ones should not reappear when the app is restarted.
  This method is used for the cron and has been configured to run every hour of the day. In this function, we use the 'nodejs_logs' collection to compare the dates of the records, so that we don't re-insert deleted data into the 'nodejs_lists' collection.
  
 The code example for the cron execute method can be found in this link [cron execute method](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/index.js) on line 27
+
+## POST Request nodejs_logs (Optional)
+
+This Request shows every single log so that you can understand a little bit about the reason why I am using the "nodejs_logs" collection in MongoDB, and get it the algorithms used in the function [serverConectHits](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/api/nodejs_list/hits.services.js) on line 138 untill 150.
+
+```
+{
+	"page":1,
+      "limit":5,
+	"search":{
+		"lastid_date": "2023-04-22T03:52:10.000Z",
+		"type":"delete"
+	}
+}
+
+```
+If you want call with out json body the request work it because have a default value for varaible page "1" and limit "5". 
 
 # HOW IT WORK
  firts step put in your terminal

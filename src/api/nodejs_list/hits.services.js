@@ -109,7 +109,7 @@ const deletehit = async(id)=>{
         idRegisters.push({story_id:hitStory.story_id,objectID:hitStory.objectID});
         //Delete the element
          await hitStory.deleteOne();
-         mg="elemento "+id+" eliminado";
+         msg="elemento "+id+" eliminado";
          }
 
        //Creating the data be put in in the 'nodejs_log'
@@ -158,7 +158,7 @@ const serverConectHits = async(date)=>{
         if(!nodeRegister_list){ 
              if(item.story_id){
              insert= await insertHits(item);
-             idRegisters.push(item.story_id);
+             idRegisters.push({story_id:item.story_id,objectID:item.objectID});
              count=count+1;
             }
         }
@@ -168,7 +168,7 @@ const serverConectHits = async(date)=>{
           if(lastdata && data.getTime()>lastdata.getTime() && item.story_id){
        
               insert= await insertHits(item);
-              idRegisters.push(item.story_id);
+              idRegisters.push({story_id:item.story_id,objectID:item.objectID});
               count=count+1;
              
           }
@@ -194,15 +194,7 @@ const serverConectHits = async(date)=>{
     return true;
 
 } catch(e){ 
-    let logJson={
-        data_execute: date,
-        msg:e,
-        type:"register",
-        error:true,
-        nodejs_list_id:-1,
-    }
-    
-    await nodejs_logsService.registerLog(logJson); 
+   
     console.log(e);
     return false;
 }

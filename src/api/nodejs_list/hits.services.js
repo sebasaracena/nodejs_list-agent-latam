@@ -155,6 +155,7 @@ const serverConectHits = async (date) => {
       nodeRegister_list,
       nodejs_log
     );
+
     //if  lastdata is null empty is true
     if (!lastdata) empty = true;
     //Conect API REST for take de data
@@ -167,7 +168,7 @@ const serverConectHits = async (date) => {
     let count = 0;
     await Promise.all(
       dataJSON.map(async (item) => {
-        let data = new Date(item.created_at);
+        let date = new Date(item.created_at);
         let insert = false;
         //If 'nodejs_lists' no have elements
         if (!nodeRegister_list) {
@@ -188,8 +189,7 @@ const serverConectHits = async (date) => {
           //Compare the date with each date delivered by the elements extracted by the REST API of 'hn.algolia.com'.
           if (
             lastdata &&
-            data.getTime() > lastdata.getTime() &&
-            item.story_id
+            date.getTime() > lastdata.getTime()
           ) {
             //insert items in 'nodejs_lists'
             insert = await insertHits(item);

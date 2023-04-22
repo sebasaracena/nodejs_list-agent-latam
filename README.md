@@ -26,4 +26,4 @@ input parameters
 
 Also, this should permit the user to remove items and
 these ones should not reappear when the app is restarted.
-[https://nodejshits.fly.dev/api/hits/delete_hits/<ID_Object_to_Mongo>](https://nodejshits.fly.dev/api/hits/delete_hits/)  is The request in Postman is of type ***DELETE***
+[https://nodejshits.fly.dev/api/hits/delete_hits/<story_id>](https://nodejshits.fly.dev/api/hits/delete_hits/)  is The request in Postman is of type ***DELETE***

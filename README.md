@@ -34,7 +34,9 @@ these ones should not reappear when the app is restarted.
  
  This method is used for the cron and has been configured to run every hour of the day. In this function, we use the 'nodejs_logs' collection to compare the dates of the records, so that we don't re-insert deleted data into the 'nodejs_lists' collection.
  
-The code example for the cron execute method can be found in this link [cron execute method](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/index.js) on line 27
+The code example for the cron execute method can be found in this link [cron execute method](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/index.js) on line 27.If you want to retrieve the elements without using cron, simply make a GET request using the following link [https://nodejshits.fly.dev/api/hits/insert_data_hits/](https://nodejshits.fly.dev/api/hits/insert_data_hits/)  
+
+
 
 ## POST Request nodejs_logs (Optional)
 

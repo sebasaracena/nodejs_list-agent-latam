@@ -1,5 +1,9 @@
 const axios= require('axios');
-// for clean data to hits for user
+/**
+ * @author Sebastian Aracena
+ * @description for clean data to hits for user
+ *  * @returns  Cleans up the variables needed for cleaner display of 'nodejs_lists' items, this is delivered in a project method used for the mongo query.
+ */
 const clean_data= async()=>{
     return {
         'story_id': 1, 
@@ -18,7 +22,11 @@ const clean_data= async()=>{
         'objectID':1
       }
 }
-
+/**
+ * @author Sebastian Aracena
+ * @description conect with API REST
+ * @returns hits from nodejs
+ */
 const conect_nodejs= async()=>{
     //conect with API REST used axios library
     const instance = axios.create({
@@ -35,7 +43,11 @@ const conect_nodejs= async()=>{
     return data;
 
 }
-
+/**
+ * @author Sebastian Aracena
+ * @description take the two objets one for nodejs_lists other from node_logs and compare the date
+ * @returns date more higher
+ */
 const last_data= async(nodeRegister_list,nodejs_log)=>{
     
     let date=null;

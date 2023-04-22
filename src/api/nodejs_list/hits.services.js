@@ -225,7 +225,7 @@ const insertHits = async(item)=>{
     try{
         const newhit = new nodejs_list({
             
-                created_at: item.created_at,
+                created_at: new Date(item.created_at),
                 title: item.story_title,
                 url: item.story_url,
                 author: item.author,
@@ -237,7 +237,7 @@ const insertHits = async(item)=>{
                 story_title: item.story_title,
                 story_url: item.story_url,
                 parent_id: item.parent_id,
-                created_at_i: item.created_at,
+                created_at_i: item.created_at_i,
                 _tags: item._tags,
                 objectID: item.objectID,
                 _highlightResult:item._highlightResult

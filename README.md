@@ -66,5 +66,5 @@ Last Step put in your terminal or use doker this aplication have ***Dockerfile**
   npm start
  
  ```
- ## Explaining the data bases
- we have two collections in mongoDB one to have the record of the hits [nodejs_lists](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_list.model.js) of the REST API and the other as a log [nodejs_logs](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_logs.model.js) record for two purposes, history of which element was inserted or deleted in a given process and to compare the last date of the elements. This way, when connecting again with the API, it does not allow to insert again data already deleted and thus not to be comparing by element through a search array which one should be inserted or not again.
+ ## Explaining the data bases (MongoDB)
+ we have two collections in [mongoDB](https://www.mongodb.com/) one to have the record of the hits [nodejs_lists](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_list.model.js) of the REST API and the other as a log [nodejs_logs](https://github.com/sebasaracena/nodejs_list-agent-latam/blob/main/src/models/nodejs_logs.model.js) record for two purposes, history of which element was inserted or deleted in a given process and to compare the last date of the elements. This way, when connecting again with the API, it does not allow to insert again data already deleted and thus not to be comparing by element through a search array which one should be inserted or not again.

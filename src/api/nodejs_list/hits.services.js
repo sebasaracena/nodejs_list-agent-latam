@@ -12,7 +12,7 @@ const hitsList = async(body)=>{
     //The variable 'match' is used to create a filter for the query.
     let match= {};
     //Calculate the 'skip' for the elements the user wants to see.
-    if(page>1) skip= (page-1)*5;
+    if(page>1) skip= (page-1)*limit;
     else skip=0;
     //Separed each variable for object search
     if(Object.entries(search).length!=0){

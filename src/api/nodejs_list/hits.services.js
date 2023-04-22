@@ -101,11 +101,11 @@ const deletehit = async(id)=>{
         //If 'nodejs_log' is not null, then 'idRegsiter' will copy an array with items that have a 'story_id'
         if(nodejs_log) idRegisters=nodejs_log.nodejs_id_list;
       
-       //looking the data for story_id
-       let hitStory= await nodejs_list.findOne({story_id:Number(id)});
+       //looking the data for objectID
+       let hitStory= await nodejs_list.findOne({objectID:Number(id)});
        
        if(hitStory){ 
-        //When a 'story_id' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
+        //When a 'objectID' is deleted, it have to be added to the 'nodejs_log' collection to show which elements have been deleted
         idRegisters.push({story_id:hitStory.story_id,objectID:hitStory.objectID});
         //Delete the element
          await hitStory.deleteOne();
